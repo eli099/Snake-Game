@@ -5,3 +5,18 @@
 body {
   background-color: rgba(181, 251, 255, 0.1);
 }
+
+/* Grid */
+#grid {
+  background-color: white;
+  border: 1px solid;
+  margin: 0 auto;
+  width: 600px;
+  height: 600px;
+}
+
+#grid div {
+  width: 10%;
+  height: 10%;
+  border: 1px solid;
+}
