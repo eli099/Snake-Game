@@ -4,19 +4,52 @@
 
 body {
   background-color: rgba(181, 251, 255, 0.1);
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
 }
 
 /* Grid */
 #grid {
   background-color: white;
   border: 1px solid;
-  margin: 0 auto;
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-#grid div {
+div {
   width: 10%;
   height: 10%;
   border: 1px solid;
 }
+
+.snake {
+  background-color: rgba(181, 251, 255, 1);
+}
+
+#container {
+  margin: 0px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#sidebar {
+  width: 100px;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin: 10px;
+}
+
+
+

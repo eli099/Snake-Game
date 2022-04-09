@@ -6,13 +6,16 @@ function init(){
   // ! THE PLAN
 
   
-  
-
   // ? Elements
 
-  // Create a 10 x 10 grid using a function that has a for Loop
   // Create variables for grid and cells
-  // Create variable for the snake (head)
+  const grid = document.querySelector('#grid')
+  const width = 10
+  const cellCount = width * width
+  console.log(cellCount)
+
+  const cells = []
+
   // Create variable for the food
   // Create variable for buttons, 'new game', 'start', 'pause-resume' & 'rules'
   // Create variable for rules and lose popup div
@@ -20,9 +23,84 @@ function init(){
   // Create variable for span element that updates the points
   // Create variable for music button & audio element
 
+
+  // * The Grid
+  // Create a 10 x 10 grid
+  // Create a 10 x 10 grid using a function that has a for Loop
+
+  function createGrid(){
+
+    for(let i = 0; i < cellCount; i++){
+      // Create the cell
+      const cell = document.createElement('div')
+      grid.appendChild(cell)
+      cell.id = i
+      cell.innerText = i
+      cells.push(cell)
+
+      // Add the snake @ start of game
+      addSnake(startPosition)
+
+    }
+
+  }
+
+  // * The Snake Character
+  // Create variable for the snake (head)
+  const snakeClass = 'snake'
+
+  const startPosition = 0 // Snake STARTING position
+  let currentPosition = startPosition // Snake position that changes
+
+
   // ? Execution
 
+  // Adding the Snake
+  function addSnake(position){
+    cells[position].classList.add(snakeClass)
+  }
+
+  // Removing the Snake
+  function removeSnake(position){
+    cells[position].classList.remove(snakeClass)
+  }
+
+
   // Allow the player to move the snake around the grid using arrow keys
+  // Keydown event
+
+  function handleKeyDown(event){
+    const key = event.keyCode
+    const up = 38
+    const down = 40
+    const left = 37
+    const right = 39
+
+    // remove snake at old position
+    removeSnake(currentPosition)
+
+    // control flow
+
+    if(key === up && currentPosition - width >= 0){
+      console.log('up')
+      currentPosition -= width
+    } else if(key === down && currentPosition + width < cellCount){
+      console.log('down')
+      currentPosition += width
+    } else if(key === left && currentPosition % width !== 0){
+      console.log('left')
+      currentPosition --
+    } else if(key === right && currentPosition % width !== (width -1)){
+      console.log('right')
+      currentPosition ++
+    } else{
+      console.log('invalid key')
+    }
+    // add snake to new position
+    addSnake(currentPosition)
+    console.log(currentPosition % width)
+  }
+
   // Make it so that the snake keeps moving in said direction
     // setInterval()
 
@@ -48,10 +126,25 @@ function init(){
 
   // ? Events
 
-  // An event that starts the game or starts a new game
+  // An event that starts the game (or starts a new game)
+
+
+
+  // keyDown event so that the user can control the snake
+
+  document.addEventListener('keydown', handleKeyDown)
+
+    // 1 - make player able to control movement of a cell
+
+
+
+  
   // An event that pauses and resumes the game
   // An event that shows the rules
   // An event to mute and unmute the music
+
+
+  createGrid()
 
 
   // * Bonus
@@ -73,6 +166,7 @@ function init(){
 
   // High score table
 
+  
 
 }
 
