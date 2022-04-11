@@ -13,6 +13,8 @@ body {
   width: 100%;
 }
 
+
+
 /* Grid */
 #grid {
   background-color: white;
@@ -34,6 +36,10 @@ div {
   background-color: rgba(181, 251, 255, 1);
 }
 
+.food {
+  background-color: rgb(255, 181, 251);
+}
+
 #container {
   margin: 0px;
   display: flex;
@@ -45,6 +51,23 @@ div {
   border: 1px solid;
   display: flex;
   flex-direction: column;
+  justify-content:flex-start;
+  align-items: center;
+}
+
+#flex-child-one {
+  border: 1px solid;
+  text-align: center;
+  margin: 10px auto;
+  width: 90%;
+  height:20%;
+  padding: 10px;
+}
+
+#flex-child-one h2 {
+  font-size: 15px;
+  margin: 0px;
+  display: inline;
 }
 
 button {

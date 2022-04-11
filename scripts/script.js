@@ -52,12 +52,22 @@ function init(){
   const startPosition = 0 // Snake STARTING position
   let currentPosition = startPosition // Snake position that changes
 
+  let snakeMove // glabal variable - accessible everywhere
+
+
+  // * The Food
+  const foodClass = 'food'
+  // For food
+  let randomIndex = Math.floor(Math.random() * 100)
+  // let foodPosition = randomIndex
+  
 
   // ? Execution
 
   // Adding the Snake
   function addSnake(position){
     cells[position].classList.add(snakeClass)
+      
   }
 
   // Removing the Snake
@@ -65,29 +75,62 @@ function init(){
     cells[position].classList.remove(snakeClass)
   }
 
+  // Adding food class to random cells
+  function addFood(position){
+    
+    cells[position].classList.add(foodClass)
+    
+  }
+
+  // * The points
+  const startScore = 0
+  let currentScore = startScore
+  const scoreSpan = document.querySelector('#score-span')
+
+
+
+  // check if food class is present - .contains() method
+  // conditional
+  // if present then remove & add score
+
+
 
   // Allow the player to move the snake around the grid using arrow keys
   // Keydown event
 
   function handleKeyDown(event){
+    
     const key = event.keyCode
     const up = 38
     const down = 40
     const left = 37
     const right = 39
 
+    
+// if I didn't have a global variable for snakeMove,
+// I would be able to clearInterval(snakeMove) before the snakeMove below
+    if(snakeMove){
+    clearInterval(snakeMove) // if snakeMove has a value, clear the interval
+    }
+
+    snakeMove = setInterval(() => {
+      
     // remove snake at old position
     removeSnake(currentPosition)
-
+    
+    // const oldPosition = document.querySelector('.snake')
+    // const oldTime = document.addEventListener('keydown', setInterval)
+    // let currentKey = key
+    
     // control flow
-
+    
     if(key === up && currentPosition - width >= 0){
       console.log('up')
       currentPosition -= width
     } else if(key === down && currentPosition + width < cellCount){
       console.log('down')
       currentPosition += width
-    } else if(key === left && currentPosition % width !== 0){
+    }else if(key === left && currentPosition % width !== 0){
       console.log('left')
       currentPosition --
     } else if(key === right && currentPosition % width !== (width -1)){
@@ -96,9 +139,23 @@ function init(){
     } else{
       console.log('invalid key')
     }
+
+    
+
     // add snake to new position
     addSnake(currentPosition)
-    console.log(currentPosition % width)
+    // console.log(currentPosition % width)
+
+    if(cells[currentPosition].classList.contains(foodClass)){
+      randomIndex = Math.floor(Math.random() * 100)
+      cells[currentPosition].classList.remove(foodClass)
+      currentScore += 1
+      scoreSpan.innerText = currentScore
+      addFood(randomIndex)
+    }  
+    
+    }, 200)
+    
   }
 
   // Make it so that the snake keeps moving in said direction
@@ -132,7 +189,18 @@ function init(){
 
   // keyDown event so that the user can control the snake
 
+
   document.addEventListener('keydown', handleKeyDown)
+  
+
+  // !
+
+  // document.addEventListener('keydown', handleUp)
+  // document.addEventListener('keydown', handleDown)
+  // document.addEventListener('keydown', handleLeft)
+  // document.addEventListener('keydown', handleRight)
+
+  // !
 
     // 1 - make player able to control movement of a cell
 
@@ -146,6 +214,7 @@ function init(){
 
   createGrid()
 
+ addFood(randomIndex)
 
   // * Bonus
 
