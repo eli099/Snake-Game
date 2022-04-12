@@ -38,56 +38,105 @@ function init(){
       cell.innerText = i
       cells.push(cell)
 
-      // Add the snake @ start of game
-      addSnake(startPosition)
-
     }
-
+    // Add the snake @ start of game
+    addSnake(currentPosition)
   }
 
   // * The Snake Character
   // Create variable for the snake (head)
   const snakeClass = 'snake'
 
-  const startPosition = 0 // Snake STARTING position
-  let currentPosition = startPosition // Snake position that changes
+  const startPosition = 44 // Snake STARTING position
+  let currentPosition = [startPosition, startPosition + width] // Snake position that changes
 
-  let snakeMove // glabal variable - accessible everywhere
 
+
+  let snakeMove // global variable - accessible everywhere
+
+  let delay
+
+  // Make it so that the snake gets bigger with every bit of food
+    // function with an if statement
+    // Player gains one point for every piece of food
+    const snakeArray = []
+
+    // function growBody(position){
+    // snakeArray.push(snakeClass)
+    // }
 
   // * The Food
   const foodClass = 'food'
   // For food
   let randomIndex = Math.floor(Math.random() * 100)
-  // let foodPosition = randomIndex
+
+  // ? Keep track of how much food is eaten, to convert to snakeLength ?
+  let snakeLength = 0
   
 
   // ? Execution
 
   // Adding the Snake
-  function addSnake(position){
-    cells[position].classList.add(snakeClass)
+  function addSnake(positions){
+    // cells[position].classList.add(snakeClass)
+    console.log(positions)
+    positions.forEach((i) => {
+      cells[i].classList.add(snakeClass)
+    })
       
   }
 
   // Removing the Snake
-  function removeSnake(position){
-    cells[position].classList.remove(snakeClass)
+  function removeSnake(positions){
+    // cells[positions].classList.remove(snakeClass)
+    positions.forEach((i) => {
+      cells[i].classList.remove(snakeClass)
+    })
   }
 
   // Adding food class to random cells
   function addFood(position){
-    
     cells[position].classList.add(foodClass)
-    
   }
+
+   // Eat food & Make new food appear in a random cell (after old food is eaten (repeated))
+  function eatFood(positions){
+    if(cells[positions[0]].classList.contains(foodClass)){
+      // console.log('snakeArray ->', snakeArray)
+      randomIndex = Math.floor(Math.random() * 100)
+      cells[positions[0]].classList.remove(foodClass)
+      currentScore += 1
+      scoreSpan.innerText = currentScore
+
+      // snakeArray.push(snakeClass)
+      // snakeArray.forEach((i) => {
+      //   cells[i].classList.add('snake')
+      // })
+
+      // cells[snakeArray].classList.add('snake')
+      // cells[position + 1].classList.add(snakeClass)
+      // // foodEaten += 1
+      
+      // // cells.splice(currentPosition, 0, snakeClass)
+
+      // for(let i = 0; i < snakeArray.length; i++){
+      // snakeArray[i].classList = cells[i].classList
+      // cells.splice(i, 0, snakeClass)
+      // console.log(cells)
+
+      addFood(randomIndex)
+      return true
+    }
+    return false
+  }
+
+
 
   // * The points
   const startScore = 0
   let currentScore = startScore
   const scoreSpan = document.querySelector('#score-span')
-
-
+  scoreSpan.innerText = currentScore
 
   // check if food class is present - .contains() method
   // conditional
@@ -106,17 +155,22 @@ function init(){
     const left = 37
     const right = 39
 
-    
 // if I didn't have a global variable for snakeMove,
 // I would be able to clearInterval(snakeMove) before the snakeMove below
     if(snakeMove){
     clearInterval(snakeMove) // if snakeMove has a value, clear the interval
     }
-
+    // if(delay){
+    //   clearInterval(delay)
+    // }
+    
+// Make it so that the snake keeps moving in said direction
     snakeMove = setInterval(() => {
       
+    // delay = setInterval(() => {
     // remove snake at old position
     removeSnake(currentPosition)
+  // }, 800)
     
     // const oldPosition = document.querySelector('.snake')
     // const oldTime = document.addEventListener('keydown', setInterval)
@@ -124,51 +178,63 @@ function init(){
     
     // control flow
     
-    if(key === up && currentPosition - width >= 0){
+    if(key === up){
+      if(currentPosition[0] - width < 0){
+        currentPosition.unshift(currentPosition[0] + (cellCount - width))
+        console.log('up')
+      } else {
+      currentPosition.unshift(currentPosition[0] - width)
       console.log('up')
-      currentPosition -= width
-    } else if(key === down && currentPosition + width < cellCount){
+      }
+      console.log('trying ->', currentPosition[0])
+    } else if(key === down){
+      if(currentPosition[0] + width > cellCount){
+        currentPosition.unshift(currentPosition[0] - (cellCount - 10))
+        console.log('up')
+      } else {
       console.log('down')
-      currentPosition += width
-    }else if(key === left && currentPosition % width !== 0){
+      currentPosition.unshift(currentPosition[0] + width)
+      }
+    }else if(key === left){
       console.log('left')
-      currentPosition --
-    } else if(key === right && currentPosition % width !== (width -1)){
+      currentPosition.unshift(currentPosition[0] - 1)
+    } else if(key === right){
       console.log('right')
-      currentPosition ++
-    } else{
+      currentPosition.unshift(currentPosition[0] + 1)
+    } else if(cells[currentPosition[1]].classList.contains(foodClass)){
+      console.log('invalid key')
+    } else {
       console.log('invalid key')
     }
 
-    
+    // stop Player from moving directly against self
 
+
+    // Make new food appear in a random cell after old food is eaten (repeated)
+    const foodEaten = eatFood(currentPosition)
+    console.log(foodEaten)
+
+    if(!foodEaten){
+    currentPosition.pop()
+    }
     // add snake to new position
+
+
     addSnake(currentPosition)
+
+
     // console.log(currentPosition % width)
 
-    if(cells[currentPosition].classList.contains(foodClass)){
-      randomIndex = Math.floor(Math.random() * 100)
-      cells[currentPosition].classList.remove(foodClass)
-      currentScore += 1
-      scoreSpan.innerText = currentScore
-      addFood(randomIndex)
-    }  
+
+    
+    
+    
     
     }, 200)
     
   }
 
-  // Make it so that the snake keeps moving in said direction
-    // setInterval()
-
-  // Make a cell of food appear in a random location on the grid when the game starts
-
-  // Make new food appear in a random cell after old food is eaten (repeated)
-    // Math.random
-
-  // Make it so that the snake gets bigger with every bit of food
-    // function with an if statement
-    // Player gains one point for every piece of food
+  
 
   // Make the snake speed up as it eats more
 
@@ -214,7 +280,8 @@ function init(){
 
   createGrid()
 
- addFood(randomIndex)
+  // Make a cell of food appear in a random location on the grid when the game starts
+  addFood(randomIndex)
 
   // * Bonus
 

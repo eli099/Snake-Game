@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: rgba(181, 251, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.4);
   margin: 0px;
   display: flex;
   flex-direction: column;
@@ -11,25 +11,38 @@ body {
   align-items: center;
   height: 100vh;
   width: 100%;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 16px;
 }
 
-
+h1 {
+  font-family: 'Michroma', sans-serif;
+  transform: scaleX(1) scaleY(0.7);
+  text-transform: uppercase;
+}
 
 /* Grid */
 #grid {
-  background-color: white;
-  border: 1px solid;
+  background-color:;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   width: 500px;
   height: 500px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  padding: 10px;
+  box-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
 }
 
-div {
+#grid div {
   width: 10%;
   height: 10%;
-  border: 1px solid;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:rgba(0, 0, 0, 0.1);
+  
 }
 
 .snake {
@@ -44,15 +57,20 @@ div {
   margin: 0px;
   display: flex;
   justify-content: space-around;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 90%;
 }
 
 #sidebar {
-  width: 100px;
-  border: 1px solid;
+  width: 150px;
+  border: 1px solid white;
   display: flex;
   flex-direction: column;
   justify-content:flex-start;
   align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
+  height: 50vh;
 }
 
 #flex-child-one {
@@ -72,6 +90,20 @@ div {
 
 button {
   margin: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  padding: 10px 20px;
+  width: 90%;
+  background-color: rgba(109, 71, 174, 0.5);
+  color: rgba(255, 255, 255, 1);
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+button:active {
+  background-color: rgba(70, 46, 113, 0.5);
 }
 
 
