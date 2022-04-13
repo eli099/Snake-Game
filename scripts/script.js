@@ -78,8 +78,6 @@ function init(){
 
   // Adding the Snake
   function addSnake(positions){
-    // cells[position].classList.add(snakeClass)
-    console.log(positions)
     positions.forEach((i) => {
       cells[i].classList.add(snakeClass)
     })
@@ -95,34 +93,33 @@ function init(){
   }
 
   // Adding food class to random cells
-  function addFood(position){
-    cells[position].classList.add(foodClass)
+  function addFood(){
+    
+    let looping = true
+    console.log('snake position', currentPosition)
+    console.log('the random number', randomIndex)
+    
+    while(looping){
+      randomIndex = Math.floor(Math.random() * 100)
+      if (currentPosition.includes(randomIndex)){ // Make it so that food isn't added in same place as snake body
+        console.log('we don\'t want ->', currentPosition[randomIndex])
+        console.log('contains snake body')
+      } else{
+        cells[randomIndex].classList.add(foodClass)
+        console.log('new position')
+        looping = false
+      }
+    }
   }
 
    // Eat food & Make new food appear in a random cell (after old food is eaten (repeated))
   function eatFood(positions){
     if(cells[positions[0]].classList.contains(foodClass)){
       // console.log('snakeArray ->', snakeArray)
-      randomIndex = Math.floor(Math.random() * 100)
+      
       cells[positions[0]].classList.remove(foodClass)
       currentScore += 1
       scoreSpan.innerText = currentScore
-
-      // snakeArray.push(snakeClass)
-      // snakeArray.forEach((i) => {
-      //   cells[i].classList.add('snake')
-      // })
-
-      // cells[snakeArray].classList.add('snake')
-      // cells[position + 1].classList.add(snakeClass)
-      // // foodEaten += 1
-      
-      // // cells.splice(currentPosition, 0, snakeClass)
-
-      // for(let i = 0; i < snakeArray.length; i++){
-      // snakeArray[i].classList = cells[i].classList
-      // cells.splice(i, 0, snakeClass)
-      // console.log(cells)
 
       addFood(randomIndex)
       return true
@@ -130,6 +127,15 @@ function init(){
     return false
   }
 
+  // If the snake 'bumps' into itself -> 'dies'
+  function snakeDie(positions){
+    // console.log(cells[positions[0]])
+    if(currentPosition.includes(positions[0], 1)){
+      console.log('you lose')
+      return true
+    }
+    return false
+  }
 
 
   // * The points
@@ -142,6 +148,8 @@ function init(){
   // conditional
   // if present then remove & add score
 
+  // Previous direction
+  let oldDirection
 
 
   // Allow the player to move the snake around the grid using arrow keys
@@ -155,8 +163,21 @@ function init(){
     const left = 37
     const right = 39
 
+    if(oldDirection === up && key === down){
+      return 
+    }else if(oldDirection === down && key === up){
+      return
+    }else if(oldDirection === left && key === right){
+      return
+    }else if(oldDirection === right && key === left){
+      return
+    } 
+
+    // Set old position to key pressed
+    oldDirection = key
+
 // if I didn't have a global variable for snakeMove,
-// I would be able to clearInterval(snakeMove) before the snakeMove below
+// I wouldn't be able to clearInterval(snakeMove) before the snakeMove below
     if(snakeMove){
     clearInterval(snakeMove) // if snakeMove has a value, clear the interval
     }
@@ -181,44 +202,46 @@ function init(){
     if(key === up){
       if(currentPosition[0] - width < 0){
         currentPosition.unshift(currentPosition[0] + (cellCount - width))
-        console.log('up')
       } else {
-      currentPosition.unshift(currentPosition[0] - width)
-      console.log('up')
+        currentPosition.unshift(currentPosition[0] - width)
       }
-      console.log('trying ->', currentPosition[0])
-    } else if(key === down){
-      if(currentPosition[0] + width > cellCount){
+    } else if (key === down){
+      if(currentPosition[0] + width >= cellCount){
         currentPosition.unshift(currentPosition[0] - (cellCount - 10))
-        console.log('up')
       } else {
-      console.log('down')
       currentPosition.unshift(currentPosition[0] + width)
       }
-    }else if(key === left){
-      console.log('left')
-      currentPosition.unshift(currentPosition[0] - 1)
+    } else if (key === left){
+      if(currentPosition[0] % width === 0){
+        currentPosition.unshift(currentPosition[0] + (width - 1))
+      } else {
+        currentPosition.unshift(currentPosition[0] - 1)
+      }
     } else if(key === right){
-      console.log('right')
-      currentPosition.unshift(currentPosition[0] + 1)
-    } else if(cells[currentPosition[1]].classList.contains(foodClass)){
-      console.log('invalid key')
-    } else {
+      if(currentPosition[0] % width === 9){
+        currentPosition.unshift(currentPosition[0] - (width - 1))
+      } else {
+        currentPosition.unshift(currentPosition[0] + 1)
+      }
+    }else {
       console.log('invalid key')
     }
 
     // stop Player from moving directly against self
+    const snakeCrash = snakeDie(currentPosition)
 
+    if (snakeCrash) {
+      window.location.reload(false)
+    }
 
     // Make new food appear in a random cell after old food is eaten (repeated)
     const foodEaten = eatFood(currentPosition)
-    console.log(foodEaten)
+    // console.log(foodEaten)
 
     if(!foodEaten){
     currentPosition.pop()
     }
     // add snake to new position
-
 
     addSnake(currentPosition)
 
@@ -231,6 +254,8 @@ function init(){
     
     
     }, 200)
+
+    
     
   }
 
@@ -259,15 +284,6 @@ function init(){
   document.addEventListener('keydown', handleKeyDown)
   
 
-  // !
-
-  // document.addEventListener('keydown', handleUp)
-  // document.addEventListener('keydown', handleDown)
-  // document.addEventListener('keydown', handleLeft)
-  // document.addEventListener('keydown', handleRight)
-
-  // !
-
     // 1 - make player able to control movement of a cell
 
 
@@ -281,7 +297,7 @@ function init(){
   createGrid()
 
   // Make a cell of food appear in a random location on the grid when the game starts
-  addFood(randomIndex)
+  addFood()
 
   // * Bonus
 
