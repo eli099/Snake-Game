@@ -8,9 +8,25 @@ function init(){
   
   // ? Elements
 
+  // Popups & buttons
+  const rules = document.querySelector('#rules')
+  // Rules button
+  const rulesButton = document.querySelector('#rules-btn')
+  // Exit button
+  const exitbtn = document.querySelector('.exit')
+  // -------------
+  // New game button
+  const newGame = document.querySelector('#new-game')
+  // Lose popup
+  const losePopUp = document.querySelector('#lose')
+  // -------------
+  // The audio/music
+  const music = document.querySelector('#music')
+  const musicbtn = document.querySelector('#musicbtn')
+
   // Create variables for grid and cells
   const grid = document.querySelector('#grid')
-  const width = 10
+  const width = 20
   const cellCount = width * width
   console.log(cellCount)
 
@@ -35,13 +51,48 @@ function init(){
       const cell = document.createElement('div')
       grid.appendChild(cell)
       cell.id = i
-      cell.innerText = i
+      // cell.innerText = i
       cells.push(cell)
 
     }
     // Add the snake @ start of game
     addSnake(currentPosition)
+    
   }
+
+  // * Pupups Functions
+  // The Rules
+  function handleRulesClick(event){
+    rules.style.visibility = 'visible'
+    rules.style.transform = 'scaleX(1) scaleY(1)'
+    rules.style.opacity = '1'
+  }
+  // Exit button function
+  function exitPopUp(){
+    rules.style.visibility = 'hidden'
+    rules.style.transform = 'scaleX(0.7) scaleY(0.7)'
+    rules.style.opacity = '0'
+  }
+  // Start new game / refresh function
+  function handleStartAgain() {
+    losePopUp.style.visibility = 'hidden'
+    losePopUp.style.transform = 'scaleX(0.7) scaleY(0.7)'
+    losePopUp.style.opacity = '0'
+    window.location.reload(false)
+  }
+
+  // * The Audio
+  // The music function
+  function playMusic() {
+    let isIt = null
+    if(isIt){
+      music.pause()
+    } else {
+      isIt = music.play()
+      console.log('the music')
+    }
+  }
+
 
   // * The Snake Character
   // Create variable for the snake (head)
@@ -49,12 +100,12 @@ function init(){
 
   const startPosition = 44 // Snake STARTING position
   let currentPosition = [startPosition, startPosition + width] // Snake position that changes
-
-
-
+  
+  
   let snakeMove // global variable - accessible everywhere
 
-  let delay
+  // Determines the interval (setInterval) speed
+  let snakeSpeed = 250
 
   // Make it so that the snake gets bigger with every bit of food
     // function with an if statement
@@ -99,6 +150,7 @@ function init(){
     console.log('snake position', currentPosition)
     console.log('the random number', randomIndex)
     
+    
     while(looping){
       randomIndex = Math.floor(Math.random() * 100)
       if (currentPosition.includes(randomIndex)){ // Make it so that food isn't added in same place as snake body
@@ -122,6 +174,7 @@ function init(){
       scoreSpan.innerText = currentScore
 
       addFood(randomIndex)
+      snakeSpeed -= 2
       return true
     }
     return false
@@ -129,7 +182,7 @@ function init(){
 
   // If the snake 'bumps' into itself -> 'dies'
   function snakeDie(positions){
-    // console.log(cells[positions[0]])
+    // console.log('snakeDie position ->', currentPosition[0])
     if(currentPosition.includes(positions[0], 1)){
       console.log('you lose')
       return true
@@ -151,6 +204,7 @@ function init(){
   // Previous direction
   let oldDirection
 
+  console.log('old direction ->', oldDirection)
 
   // Allow the player to move the snake around the grid using arrow keys
   // Keydown event
@@ -163,6 +217,7 @@ function init(){
     const left = 37
     const right = 39
 
+
     if(oldDirection === up && key === down){
       return 
     }else if(oldDirection === down && key === up){
@@ -171,7 +226,10 @@ function init(){
       return
     }else if(oldDirection === right && key === left){
       return
-    } 
+    } else if (key !== up && key !== down && key !== left && key !== right){
+      return
+    }
+  
 
     // Set old position to key pressed
     oldDirection = key
@@ -181,22 +239,15 @@ function init(){
     if(snakeMove){
     clearInterval(snakeMove) // if snakeMove has a value, clear the interval
     }
-    // if(delay){
-    //   clearInterval(delay)
-    // }
     
 // Make it so that the snake keeps moving in said direction
     snakeMove = setInterval(() => {
       
-    // delay = setInterval(() => {
+    
     // remove snake at old position
     removeSnake(currentPosition)
-  // }, 800)
     
-    // const oldPosition = document.querySelector('.snake')
-    // const oldTime = document.addEventListener('keydown', setInterval)
-    // let currentKey = key
-    
+
     // control flow
     
     if(key === up){
@@ -207,7 +258,7 @@ function init(){
       }
     } else if (key === down){
       if(currentPosition[0] + width >= cellCount){
-        currentPosition.unshift(currentPosition[0] - (cellCount - 10))
+        currentPosition.unshift(currentPosition[0] - (cellCount - width))
       } else {
       currentPosition.unshift(currentPosition[0] + width)
       }
@@ -218,7 +269,7 @@ function init(){
         currentPosition.unshift(currentPosition[0] - 1)
       }
     } else if(key === right){
-      if(currentPosition[0] % width === 9){
+      if(currentPosition[0] % width === 19){
         currentPosition.unshift(currentPosition[0] - (width - 1))
       } else {
         currentPosition.unshift(currentPosition[0] + 1)
@@ -230,8 +281,12 @@ function init(){
     // stop Player from moving directly against self
     const snakeCrash = snakeDie(currentPosition)
 
-    if (snakeCrash) {
-      window.location.reload(false)
+    if (!!snakeCrash) {
+      // window.location.reload(false)
+      currentPosition = []
+      losePopUp.style.visibility = 'visible'
+      losePopUp.style.transform = 'scaleX(1) scaleY(1)'
+      losePopUp.style.opacity = '1'
     }
 
     // Make new food appear in a random cell after old food is eaten (repeated)
@@ -245,15 +300,16 @@ function init(){
 
     addSnake(currentPosition)
 
+    // console.log('modulus', currentPosition[0] % width)
+    
+    // console.log('snake speed ->', snakeSpeed)
 
-    // console.log(currentPosition % width)
-
 
     
     
     
     
-    }, 200)
+    }, snakeSpeed)
 
     
     
@@ -279,22 +335,25 @@ function init(){
 
 
   // keyDown event so that the user can control the snake
-
-
   document.addEventListener('keydown', handleKeyDown)
-  
 
-    // 1 - make player able to control movement of a cell
-
-
-
-  
   // An event that pauses and resumes the game
+
   // An event that shows the rules
+  rulesButton.addEventListener('click', handleRulesClick)
+  // An event that closes the popup
+  exitbtn.addEventListener('click', exitPopUp)
+  // An event that starts a new game
+  newGame.addEventListener('click', handleStartAgain)
+
   // An event to mute and unmute the music
+
+  musicbtn.addEventListener('click', playMusic)
 
 
   createGrid()
+
+  
 
   // Make a cell of food appear in a random location on the grid when the game starts
   addFood()

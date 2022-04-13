@@ -11,8 +11,13 @@
   <title>Snake Game</title>
 </head>
 <body>
+  <div class="popup" id="lose">
+    <h3>You Lose!</h3>
+    <button id="new-game">Play Again?</button>
+  </div>
 
   <div class="popup" id="rules">
+    <div class="exit"></div>
     <h3>Game Rules</h3>
     <ul>
     <li>Start the game with either the UP, DOWN, LEFT or RIGHT arrow keys</li>
@@ -21,6 +26,8 @@
     <li>Avoid bumping into yourself</li>
     </ul>
   </div>
+
+  <audio id="music" src="audio/CFCF - Slippery Plastic Euphoric.mp3"></audio>
   
   <header>
     <h1>Snake</h1>
@@ -31,10 +38,10 @@
     <!-- left sidebar -->
     <aside id="sidebar">
       <div id="flex-child-one">
-        <h2>Score:</h2>
-        <p><span id="score-span"></span></p>
+        <h2>Score</h2>
+        <div id="score-span"></div>
       </div>
-      <button></button>
+      <button id="musicbtn">Music</button>
       <button></button>
     </aside>
 
@@ -45,9 +52,9 @@
     </div>
     <!-- right sidebar -->
     <aside id="sidebar" class="right">
-      <button id="start">Start</button>
+      <!-- <button id="start">Start</button> -->
       <button id="pause">Pause</button>
-      <button id="rules">Rules</button>
+      <button id="rules-btn">Rules</button>
     </aside>
   </section>
 </body>
