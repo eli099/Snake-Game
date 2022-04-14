@@ -22,13 +22,18 @@
     <ul>
     <li>Start the game with either the UP, DOWN, LEFT or RIGHT arrow keys</li>
     <li>Move your snake around the map with the UP, DOWN, LEFT, RIGHT arrow keys</li>
-    <li>Eat food to grow and gain points</li>
-    <li>Avoid bumping into yourself</li>
+    <li>Eat eggs to grow and gain points</li>
+    <li>Try to survive as long as possible by avoiding bumping into yourself</li>
     </ul>
   </div>
-
+<!-- bg music -->
   <audio id="music" src="audio/CFCF - Slippery Plastic Euphoric.mp3"></audio>
-  
+  <!-- foodSound -->
+  <audio id="food" src="audio/food.wav"></audio>
+  <!-- loseSound -->
+  <audio id="lose-sound" src="audio/lose.wav"></audio>
+
+  <!-- Main -->
   <header>
     <h1>Snake</h1>
   </header>
@@ -37,12 +42,16 @@
   <section id="container">
     <!-- left sidebar -->
     <aside id="sidebar">
-      <div id="flex-child-one">
-        <h2>Score</h2>
-        <div id="score-span"></div>
+      <div class="inside">
+        <div id="flex-child-one">
+          <h2>Score</h2>
+          <div id="score-span"></div>
+        </div>
+        <div id="flex-child-one">
+          <h2>Music</h2>
+          <button id="musicbtn">Play</button>
+        </div>
       </div>
-      <button id="musicbtn">Music</button>
-      <button></button>
     </aside>
 
     <!-- Grid -->
@@ -52,9 +61,12 @@
     </div>
     <!-- right sidebar -->
     <aside id="sidebar" class="right">
-      <!-- <button id="start">Start</button> -->
-      <button id="pause">Pause</button>
-      <button id="rules-btn">Rules</button>
+      <div class="inside">
+        <!-- <button id="start">Start</button> -->
+        <!-- <button id="pause">Pause</button> -->
+        <button id="rules-btn">Rules</button>
+        <button id="new">New Game</button>
+      </div>
     </aside>
   </section>
 </body>

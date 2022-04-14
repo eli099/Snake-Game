@@ -17,6 +17,7 @@ function init(){
   // -------------
   // New game button
   const newGame = document.querySelector('#new-game')
+  const newRegular = document.querySelector('#new')
   // Lose popup
   const losePopUp = document.querySelector('#lose')
   // -------------
@@ -75,22 +76,45 @@ function init(){
   }
   // Start new game / refresh function
   function handleStartAgain() {
+    console.log('new game')
     losePopUp.style.visibility = 'hidden'
     losePopUp.style.transform = 'scaleX(0.7) scaleY(0.7)'
     losePopUp.style.opacity = '0'
     window.location.reload(false)
   }
 
+  // regular new game
+  function handleNewGame() {
+    console.log('new game')
+    window.location.reload(false)
+  }
+
   // * The Audio
   // The music function
-  function playMusic() {
-    let isIt = null
-    if(isIt){
-      music.pause()
+  function toggleMusic() {
+    
+    if(music.paused){
+      music.play()
+      musicbtn.innerText = 'Pause'
     } else {
-      isIt = music.play()
+      music.pause()
+      // music.src = ''
+      
       console.log('the music')
+      musicbtn.innerText = 'Play'
     }
+  }
+
+  // Game sounds
+  const foodSound = document.querySelector('#food')
+  function playSound() {
+    // foodSound.src = ''
+    foodSound.play()
+  }
+
+  const loseSound = document.querySelector('#lose-sound')
+  function playLose() {
+    loseSound.play()
   }
 
 
@@ -170,11 +194,12 @@ function init(){
       // console.log('snakeArray ->', snakeArray)
       
       cells[positions[0]].classList.remove(foodClass)
+      playSound()
       currentScore += 1
       scoreSpan.innerText = currentScore
 
       addFood(randomIndex)
-      snakeSpeed -= 2
+      snakeSpeed -= 5
       return true
     }
     return false
@@ -184,6 +209,7 @@ function init(){
   function snakeDie(positions){
     // console.log('snakeDie position ->', currentPosition[0])
     if(currentPosition.includes(positions[0], 1)){
+      playLose()
       console.log('you lose')
       return true
     }
@@ -284,6 +310,7 @@ function init(){
     if (!!snakeCrash) {
       // window.location.reload(false)
       currentPosition = []
+      // snakeMove = false
       losePopUp.style.visibility = 'visible'
       losePopUp.style.transform = 'scaleX(1) scaleY(1)'
       losePopUp.style.opacity = '1'
@@ -346,9 +373,12 @@ function init(){
   // An event that starts a new game
   newGame.addEventListener('click', handleStartAgain)
 
+  // Homepage new game
+  newRegular.addEventListener('click', handleNewGame)
+
   // An event to mute and unmute the music
 
-  musicbtn.addEventListener('click', playMusic)
+  musicbtn.addEventListener('click', toggleMusic)
 
 
   createGrid()

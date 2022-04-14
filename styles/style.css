@@ -3,7 +3,8 @@
 }
 
 body {
-  background-color: rgb(255, 157, 72);
+  /* background-color: rgb(255, 157, 72); */
+  background: radial-gradient(circle, rgba(255, 157, 72) 40%, rgba(96, 184, 255, 1) 100%);
   margin: 0px;
   display: flex;
   flex-direction: column;
@@ -27,6 +28,11 @@ h1 {
   padding: 12px 30px 15px 30px;
   margin: 0px auto 10px auto;
   font-size: 3em;
+  box-shadow: rgba(255, 255, 255, 0.4) 5px 0px, rgba(255, 255, 255, 0.3) 10px 0px, rgba(255, 255, 255, 0.2) 15px 0px, rgba(255, 255, 255, 0.1) 20px 0px, rgba(255, 255, 255, 0.05) 25px 0px,
+  rgba(255, 255, 255, 0.4) -5px 0px, rgba(255, 255, 255, 0.3) -10px 0px, rgba(255, 255, 255, 0.2) -15px 0px, rgba(255, 255, 255, 0.1) -20px 0px, rgba(255, 255, 255, 0.05) -25px 0px;
+  /* text-shadow: rgba(68, 96, 255, 0.4) 5px 0px, rgba(255, 255, 255, 0.3) 10px 0px, rgba(255, 255, 255, 0.2) 15px 0px, rgba(255, 255, 255, 0.1) 20px 0px, rgba(255, 255, 255, 0.05) 25px 0px,
+  rgba(68, 96, 255, 0.4) -5px 0px, rgba(255, 255, 255, 0.3) -10px 0px, rgba(255, 255, 255, 0.2) -15px 0px, rgba(255, 255, 255, 0.1) -20px 0px, rgba(255, 255, 255, 0.05) -25px 0px; */
+  /* box-shadow: rgba(255, 255, 255, 1) 25px 0px 10px, rgba(255, 255, 255, 1) -25px 0px 10px; */
 }
 
 h3 {
@@ -53,6 +59,7 @@ h3 {
   flex-wrap: wrap;
   padding: 10px;
   box-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
+  /* margin-top: -100px; */
 }
 
 #grid div {
@@ -60,7 +67,7 @@ h3 {
   min-height: 5%;
   max-width: 10%;
   max-height: 10%;
-  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border: 0.1px solid rgba(0, 34, 255, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,26 +77,33 @@ h3 {
 }
 
 .snake {
-  background-color: rgb(68, 96, 255);
+  background-color: rgb(93, 0, 255);
   border-radius: 0px;
+  box-shadow: 0px 0px 5px rgb(255, 255, 255);
 }
 
 .food {
-  background-color: rgb(0, 255, 179);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 5px rgb(255, 255, 255);
   transition: all 0.5s;
-  border-radius: 0px;
+  border-radius: 100px;
+  background-image: url("../assets/icons8-kawaii-egg-96.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #container {
   margin: 0px;
   display: flex;
   justify-content: space-around;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  width: 90%;
+  border: 0px solid rgba(0, 0, 0, 0.1);
+  width: 80%;
 }
 
-#sidebar {
-  width: 150px;
+.inside {
+  padding: 10px;
+  width: 200px;
   border: 1px solid white;
   display: flex;
   flex-direction: column;
@@ -97,20 +111,35 @@ h3 {
   align-items: center;
   /* background-color: rgba(255, 255, 255, 0.1); */
   box-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
-  height: 50%;
-  padding: 10px;
+  /* height: 65%; */
   background-color: rgb(140, 203, 255);
 }
 
-#sidebar button:nth-child(3) {
-  margin: 0px;
+#sidebar {
+  /* width: 200px;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-start;
+  align-items: center;
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  /* box-shadow: 0px 0px 5px rgba(255, 255, 255, 1); */
+  /* height: 65%; */
+  /* padding: 10px; */
+  /* background-color: rgb(140, 203, 255); */
 }
 
+/* #sidebar button:nth-child(3) {
+  margin: 0px;
+} */
+
+/* Score div */
 #flex-child-one {
   /* border: 1px solid; */
   text-align: center;
+  border-radius: 1px;
   /* margin: 10px auto; */
-  width: 130px;
+  width: 180px;
   /* height:20%; */
   padding: 10px;
   background-color: rgba(255, 255, 255, 1);
@@ -122,17 +151,56 @@ h3 {
 }
 
 #flex-child-one h2 {
-  font-size: 15px;
+  /* font-size: 15px; */
   font-size: 1.2em;
   text-transform: uppercase;
   border-bottom: 1px solid rgba(96, 184, 255, 1);
   padding-bottom: 5px;
+  color: rgb(0, 0, 0, 0.7);
 }
 #flex-child-one div {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: rgb(0, 0, 0, 0.7);
   border: 1px solid rgba(96, 184, 255, 0.5);
   padding: 5px;
   width: 100px;
   margin: 5px auto ;
+}
+
+#flex-child-one:nth-child(2) {
+  margin-top: 10px;
+}
+#flex-child-one:nth-child(2) h2 {
+  font-size: 1em;
+  border: 0px dotted rgba(255, 157, 72, 0.4);
+  padding: 5px 30px;
+  background-color: rgba(96, 184, 255, 0.3);
+}
+.right button {
+  margin: 0px 0px 10px 0px;
+}
+.right #new {
+  margin: 0px;
+  padding: 10px 20px;
+  width: 180px;
+}
+
+button#musicbtn {
+  border-radius: 100px;
+  background-color: rgba(255, 0, 64, 0.5);
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  font-size: 1em;
+  padding: 20px 10px;
+  transition: all 0.1s ease-in;
+  color: white;
+}
+
+#musicbtn:active {
+  transform: scaleX(0.9) scaleY(0.9);
+  background-color: rgba(255, 0, 64, 0.7);
 }
 
 button {
@@ -140,7 +208,7 @@ button {
   border: 0px solid rgba(0, 0, 0, 0.1);
   border-radius: 1px;
   padding: 10px 20px;
-  width: 130px;
+  width: 180px;
   background-color: rgba(255, 255, 255, 1);
   color: rgb(96, 184, 255);
   font-family: 'Play', sans-serif;
@@ -159,6 +227,7 @@ button#pause {
   margin-bottom: 0px;
 }
 
+/* pupup class */
 .popup {
   position: fixed;
   background-color: rgba(255, 255, 255, 1);
@@ -171,13 +240,13 @@ button#pause {
   border: 2px solid rgba(96, 184, 255, 1);
   box-shadow: 0px 0px 5px rgb(161, 213, 255);
 }
-
+/* rules popup */
 #rules {
   visibility: hidden;
   transform: scaleX(0.8) scaleY(0.8);
   /* transition: all 0.2s ease-in; */
 }
-
+/* popup exit button */
 .exit {
   position: absolute;
   margin-top: -50px;
@@ -221,6 +290,7 @@ button#pause {
   background-color: rgb(255, 0, 0);
 }
 
+/* lose popup */
 .popup#lose {
   visibility: hidden;
   display: flex;
