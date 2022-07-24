@@ -1,8 +1,6 @@
-# SEI Project One
+# Snake Game
 
-## Snake Game
-
-### The Project Brief
+## The Project Brief
 
 To create a game using grid movement through the use of the DOM.
 
@@ -16,7 +14,7 @@ To create a game using grid movement through the use of the DOM.
 
 **I decided to choose the classic Snake Game.**
 
-### Snake Game Brief
+## Snake Game Brief
 
 * The snake should be able to eat food to grow bigger
 * The game should end when the snake hits the wall or itself
@@ -24,11 +22,11 @@ To create a game using grid movement through the use of the DOM.
 
 ---
 
-### The Game Rules & Controls
+## The Game Rules & Controls
 
 Snake is a single-player game where the player navigates around the board gaining points as it eats food that appears at random points on the grid. With each bite of food, the snake grows longer and increases in speed. The aim of the game is to gain as much points and survive long enough without hitting yourself or the edge of the grid - I chose to make it 'Game Over' if the player hits itself *only*.
 
-#### Controls
+### Controls
 
 - Start the game with either the UP, **DOWN**, **LEFT**, **RIGHT** arrow keys
 - Move your snake around the map with the **UP**, **DOWN**, **LEFT**, **RIGHT** arrow keys
@@ -37,7 +35,7 @@ Snake is a single-player game where the player navigates around the board gainin
 
 ---
 
-### Technologies Used:
+## Technologies Used:
 
 ### HTML
 - The main body and content structure
@@ -86,35 +84,29 @@ I used `document.querySelector` to create variables from the HTML elements. This
 
 I defined this `createGrid()` function so that I could create my game grid. I first created a new `div` and saved it to a `cell` variable and then appended it to the `grid` div container. Then I pushed this cell into the `cells` array. These were all wrapped inside of a for loop that was defined to create 100 cells within the `grid` element.
 
-### Challenges
+## Challenges
 
 At the beginning of the project I felt quite overwhelmed about how I could use what I learnt before to create the game. I found that taking it step by step helped. After planning with a wireframe, writing pseudo code, and revising previous lessons I felt a little better.
 
 There were a couple of times where I had to ask for help from the instructional team:
 
-I had managed to make the snake move continuously after pressing an arrow key once with `setInterval` but there was a problem. If another arrow key was pressed, the snake would start moving erratically in different directions. I realised that the previous increment (direction) wasn't being cleared so it was accumulating with every new `keyDown` event.
+| I had managed to make the snake move continuously after pressing an arrow key once with `setInterval` but there was a problem. If another arrow key was pressed, the snake would start moving erratically in different directions. I realised that the previous increment (direction) wasn't being cleared so it was accumulating with every new `keyDown` event. So I played around with different ideas, researched and tried invoking `clearInterval` at different points in the code but it still wasn't working. |
+| -------------- |
 
-I played around with different ideas, researched and tried invoking `clearInterval` at different points in the code but it still wasn't working. After asking for help I learnt that if I made a glabal variable for the interval `snakeMove` then I could clear it with `clearInterval(snakeMove)` before each new direction.
+| Solution |
+| ------ |
+| After asking for help I learnt that if I made a global variable for the interval `snakeMove` then I could clear it with `clearInterval(snakeMove)` before each new `keyDown` event was used to change direction. |
 
-Another thing I couldn't figure out was how to stop the snake from moving back on itself in the opposite direction.
+| Another thing I couldn't figure out was how to stop the snake from moving back on itself in the opposite direction. |
+| ------ |
 
-### Bugs
+| My instructor helped me to see that if I stored the previous direction in a variable (`oldDirection`) then I could create another conditional statement (within the function) that would disallow the player from moving the snake in the direct opposite direction |
+
+From there I was able to figure out how to add food to a random point on the grid, apart from the snake's body - again with some control flow.
+
+## Bugs
 
 - At the start of the game, if the DOWN key is pressed, the game ends.
-
-### Asset Credits
-
-#### Images
-
-* Food - Egg [Icons8](https://icons8.com/icon/set/food/fluency)
-
-#### Sound
-
-- Background music: [CFCF - Slippery Plastic Euphoric](https://soundcloud.com/cfcf/slippery-plastic-euphoric-1)
-
-- Eating sound: https://freesound.org/people/cabled_mess/sounds/350873/
-
-- Lose sound: https://freesound.org/people/cabled_mess/sounds/350922/
 
 ### Improvements
 
@@ -131,3 +123,17 @@ There are some things I would like to do to improve the game and site.
 
 - Allow different game modes, e.g 'Hard', 'Easy'
     * A 'Hard' mode where the snake dies if it touches the edge of the grid
+
+## Asset Credits
+
+### Images
+
+* Food - Egg [Icons8](https://icons8.com/icon/set/food/fluency)
+
+### Sound
+
+- Background music: [CFCF - Slippery Plastic Euphoric](https://soundcloud.com/cfcf/slippery-plastic-euphoric-1)
+
+- Eating sound: https://freesound.org/people/cabled_mess/sounds/350873/
+
+- Lose sound: https://freesound.org/people/cabled_mess/sounds/350922/
