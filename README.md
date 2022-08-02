@@ -90,19 +90,68 @@ At the beginning of the project I felt quite overwhelmed about how I could use w
 
 There were a couple of times where I had to ask for help from the instructional team:
 
-| I had managed to make the snake move continuously after pressing an arrow key once with `setInterval` but there was a problem. If another arrow key was pressed, the snake would start moving erratically in different directions. I realised that the previous increment (direction) wasn't being cleared so it was accumulating with every new `keyDown` event. So I played around with different ideas, researched and tried invoking `clearInterval` at different points in the code but it still wasn't working. |
-| -------------- |
+I had managed to make the snake move continuously after pressing an arrow key once with `setInterval` but there was a problem. If another arrow key was pressed, the snake would start moving erratically in different directions. I realised that the previous increment (direction) wasn't being cleared so it was accumulating with every new `keyDown` event. So I played around with different ideas, researched and tried invoking `clearInterval` at different points in the code but it still wasn't working.
 
 | Solution |
 | ------ |
 | After asking for help I learnt that if I made a global variable for the interval `snakeMove` then I could clear it with `clearInterval(snakeMove)` before each new `keyDown` event was used to change direction. |
 
-| Another thing I couldn't figure out was how to stop the snake from moving back on itself in the opposite direction. |
-| ------ |
+Another thing I couldn't figure out was how to stop the snake from moving back on itself in the opposite direction.
 
-| My instructor helped me to see that if I stored the previous direction in a variable (`oldDirection`) then I could create another conditional statement (within the function) that would disallow the player from moving the snake in the direct opposite direction |
+My instructor helped me to see that if I stored the previous direction in a variable `oldDirection` then I could create another conditional statement (within the function) that would disallow the player from moving the snake in the direct opposite direction.
 
-From there I was able to figure out how to add food to a random point on the grid, apart from the snake's body - again with some control flow.
+```jsx
+// Outside keydown function
+// Previous direction
+let oldDirection
+
+// Inside keydown function
+const key = event.keyCode
+const up = 38
+const down = 40
+const left = 37
+const right = 39
+
+
+if (oldDirection === up && key === down) {
+  return
+} else if (oldDirection === down && key === up) {
+  return
+} else if (oldDirection === left && key === right) {
+  return
+} else if (oldDirection === right && key === left) {
+  return
+} else if (key !== up && key !== down && key !== left && key !== right) {
+  return
+}
+```
+
+From there I was able to figure out how to add food to a random point on the grid, apart from the snake's body - again with some control flow. I made it so that if a cell already included the 'food' class (determined by the `randomIndex`) then it would loop back around and generate a new index, and repeat this until there is not a food there already.
+
+```js
+// Snake position that changes
+let currentPosition = [startPosition, startPosition + width]
+
+// * The Food - References the '.food' class in the CSS
+const foodClass = 'food'
+
+// Adding food class to random cells
+function addFood() {
+
+  let looping = true
+
+  while (looping) {
+    randomIndex = Math.floor(Math.random() * 100)
+    if (currentPosition.includes(randomIndex)) { // Make it so that food isn't added in same place as snake body
+      console.log('we don\'t want ->', currentPosition[randomIndex]) // Checking where it would've been
+      // Do nothing
+    } else {
+      cells[randomIndex].classList.add(foodClass) // Add food to that random cell number
+      looping = false // Stop the loop
+    }
+  }
+}
+```
 
 ## Bugs
 
