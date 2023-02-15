@@ -1,5 +1,13 @@
 # Snake Game
 
+### Play [HERE](https://eli099.github.io/Snake-Game/) 🕹
+
+## Look and Feel (14/04/2022)
+
+![screenshot](homepage.png)
+
+---
+
 ## The Project Brief
 
 To create a game using grid movement through the use of the DOM.
@@ -65,10 +73,6 @@ Snake is a single-player game where the player navigates around the board gainin
 - Control flow to stop the snake from moving back on itself
 
 ---
-
-## Look and Feel (14/04/2022)
-
-![screenshot](homepage.png)
 
 ## Fundamentals
 
