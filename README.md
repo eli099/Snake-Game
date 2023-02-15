@@ -80,7 +80,7 @@ Snake is a single-player game where the player navigates around the board gainin
 
 ![Elements screenshot](Elements.png)
 
-I used `document.querySelector` to create variables from the HTML elements. This was so that I could later access or manipulate them with Javascript and the DOM. I started of initially with just the variables for the `grid`, the grid `width`, the `cellCount` and an empty `cells` array that represents the grid that I could later iterate through.
+I used `document.querySelector` to create variables from the HTML elements. This was so that I could later access or manipulate them through the DOM using Javascript. I started of initially with just the variables for the `grid`, the grid `width`, the `cellCount` and an empty `cells` array that represents the grid that I could later iterate through.
 
 ### The Grid
 
@@ -92,6 +92,10 @@ I defined this `createGrid()` function so that I could create my game grid. I fi
 
 At the beginning of the project I felt quite overwhelmed about how I could use what I learnt before to create the game. I found that taking it step by step helped. After planning with a wireframe, writing pseudo code, and revising previous lessons I felt a little better.
 
+**My wireframe:**
+
+![wireframe](Wireframe-version-3.png)
+
 There were a couple of times where I had to ask for help from the instructional team:
 
 I had managed to make the snake move continuously after pressing an arrow key once with `setInterval` but there was a problem. If another arrow key was pressed, the snake would start moving erratically in different directions. I realised that the previous increment (direction) wasn't being cleared so it was accumulating with every new `keyDown` event. So I played around with different ideas, researched and tried invoking `clearInterval` at different points in the code but it still wasn't working.
@@ -102,7 +106,7 @@ I had managed to make the snake move continuously after pressing an arrow key on
 
 Another thing I couldn't figure out was how to stop the snake from moving back on itself in the opposite direction.
 
-My instructor helped me to see that if I stored the previous direction in a variable `oldDirection` then I could create another conditional statement (within the function) that would disallow the player from moving the snake in the direct opposite direction.
+My instructor helped me to see that if I stored the previous direction in a variable `oldDirection` then I could create another conditional statement (within the function) that would not allow the player to move the snake in the direct opposite direction.
 
 ```jsx
 // Outside keydown function
@@ -130,7 +134,7 @@ if (oldDirection === up && key === down) {
 }
 ```
 
-From there I was able to figure out how to add food to a random point on the grid, apart from the snake's body - again with some control flow. I made it so that if a cell already included the 'food' class (determined by the `randomIndex`) then it would loop back around and generate a new index, and repeat this until there is not a food there already.
+From there I was able to figure out how to add food to a random point on the grid, apart from the snake's body - again with some control flow. I made it so that if a cell already included the `"food"` class - determined by the `randomIndex` - then it would loop back around and generate a new index, and repeat this until there is not a `"food"` present already.
 
 ```js
 // Snake position that changes
@@ -181,12 +185,12 @@ There are some things I would like to do to improve the game and site.
 
 ### Images
 
-* Food - Egg [Icons8](https://icons8.com/icon/set/food/fluency)
+*  [Food - The egg](https://icons8.com/icon/set/food/fluency)
 
 ### Sound
 
 - Background music: [CFCF - Slippery Plastic Euphoric](https://soundcloud.com/cfcf/slippery-plastic-euphoric-1)
 
-- Eating sound: https://freesound.org/people/cabled_mess/sounds/350873/
+- [Eating sound](https://freesound.org/people/cabled_mess/sounds/350873/)
 
-- Lose sound: https://freesound.org/people/cabled_mess/sounds/350922/
+- [Lose sound](https://freesound.org/people/cabled_mess/sounds/350922/)
