@@ -167,11 +167,11 @@ function addFood() {
 
 ### Improvements
 
-There are some things I would like to do to improve the game and site.
+There are some things I would like to do to improve the game and site:
 
 - Add a favicon with a logo for the website
 
-- Fix bug that ends the game before you start if the DOWN key is pressed
+- Fix the bug that ends the game before you start if the DOWN key is pressed
 
 - Add an option to increase accessibilty for those with visual impairment or or sensitivities
     *  mute the colours (make black and white or use colours that are 'easier' on the eyes)
@@ -180,6 +180,8 @@ There are some things I would like to do to improve the game and site.
 
 - Allow different game modes, e.g 'Hard', 'Easy'
     * A 'Hard' mode where the snake dies if it touches the edge of the grid
+
+- May need to reconsider the snake speed increase - it gets fast quickly
 
 ## Asset Credits
 
